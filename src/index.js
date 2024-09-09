@@ -1,23 +1,10 @@
-const { Client, GatewayIntentBits } = require("discord.js");
-
-const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-  ],
-});
-
+const { Client, Events, GatewayIntentBits } = require("discord.js");
 const { token } = require("./config.json");
 
-client.on("ready", () => {
-  console.log("The bot is now running!");
-});
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-client.on("messageCreate", (message) => {
-  if (message.content === "ping") {
-    message.channel.send("pong");
-  }
+client.once(Events.ClientReady, (readyClient) => {
+  console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
 client.login(token);
