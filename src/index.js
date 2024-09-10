@@ -28,10 +28,6 @@ for (const folder of commandFolders) {
   }
 }
 
-client.once(Events.ClientReady, (readyClient) => {
-  console.log(`Ready! Logged in as ${readyClient.user.tag}`);
-});
-
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return; //returns early if not a slash command
   const command = interaction.client.commands.get(interaction.commandName); //variable command to store things
@@ -59,5 +55,17 @@ client.on(Events.InteractionCreate, async (interaction) => {
     }
   }
 });
+
+client.once(Events.ClientReady, (readyClient) => {
+  console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+});
+
+//to check bot servers
+// client.on("ready", () => {
+//   console.log(`Bot is in the following servers:`);
+//   client.guilds.cache.forEach((guild) => {
+//     console.log(guild.name);
+//   });
+// });
 
 client.login(token);
