@@ -1,6 +1,6 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
+const { Client, Collection, GatewayIntentBits } = require("discord.js");
 const { token } = require("./config.json");
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -27,38 +27,6 @@ for (const folder of commandFolders) {
     }
   }
 }
-
-client.on(Events.InteractionCreate, async (interaction) => {
-  if (!interaction.isChatInputCommand()) return; //returns early if not a slash command
-  const command = interaction.client.commands.get(interaction.commandName); //variable command to store things
-
-  if (!command) {
-    console.error(`No command matching ${interaction.commandName} was found.`); //command does not exists
-    return;
-  }
-
-  try {
-    await command.execute(interaction); //execute command
-  } catch (error) {
-    //error handling
-    console.error(error);
-    if (interaction.replied || interaction.deferred) {
-      await interaction.followUp({
-        content: "There was an error while executing this command!",
-        ephemeral: true,
-      });
-    } else {
-      await interaction.reply({
-        content: "There was an error while executing this command!",
-        ephemeral: true,
-      });
-    }
-  }
-});
-
-client.once(Events.ClientReady, (readyClient) => {
-  console.log(`Ready! Logged in as ${readyClient.user.tag}`);
-});
 
 //to check bot servers
 // client.on("ready", () => {
