@@ -1,13 +1,12 @@
 const fs = require("node:fs");
-const path = require("ndoe:path");
+const path = require("node:path");
 const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
-const token = require("../config.json");
+const { token } = require("./config.json");
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
-
-const foldersPath = path.join(__dirname, "commands"); //constructed a path to the commands directory
+const foldersPath = path.join(__dirname, "..", "commands"); //constructed a path to the commands directory
 const commandFolders = fs.readdirSync(foldersPath); //reads and returns an array containing all the folders in the directory
 //in this case, reads commands and returns [utilities]
 
@@ -29,9 +28,12 @@ for (const folder of commandFolders) {
   }
 }
 
+client.once(Events.ClientReady, (readyClient) => {
+  console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+});
+
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return; //returns early if not a slash command
-
   const command = interaction.client.commands.get(interaction.commandName); //variable command to store things
 
   if (!command) {
@@ -57,3 +59,5 @@ client.on(Events.InteractionCreate, async (interaction) => {
     }
   }
 });
+
+client.login(token);
