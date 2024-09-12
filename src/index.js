@@ -1,7 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
-const { token, prefix } = require("./config.json");
+const { token } = require("./config.json");
 
 const client = new Client({
   intents: [
@@ -20,7 +20,7 @@ for (const folder of commandFolders) {
   const commandsPath = path.join(foldersPath, folder); //construct a path to foldersPath; here, to [utilities]
   const commandFiles = fs
     .readdirSync(commandsPath)
-    .filter((file) => file.endsWith(".js")); //filters any file that has extension .js
+    .filter((file) => file.endsWith(".js")); //filters any file that does not ends with .js
   for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
     const command = require(filePath);
@@ -48,25 +48,6 @@ for (const file of eventFiles) {
     client.on(event.name, (...args) => event.execute(...args));
   }
 }
-
-client.on("messageCreate", (message) => {
-  if (!message.author.bot || !message.content.startsWith(prefix)) return;
-
-  const args = message.content.slice(prefix.length).trim().split(/ +/);
-  const commandName = args.shift().toLowerCase();
-
-  const command = client.commands.get(commandName);
-  if (!command) {
-    console.log(`ERROR! Could not find ${command.name}.`);
-  }
-
-  try {
-    command.execute(message, args);
-  } catch (error) {
-    console.error(error);
-    message.reply("There was an error executing that command.");
-  }
-});
 
 //to check bot servers
 // client.on("ready", () => {

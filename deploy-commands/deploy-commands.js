@@ -11,7 +11,7 @@ const mode = process.argv[2] || "global"; // Default to global if not provided
 
 const commands = [];
 const foldersPath = path.join(__dirname, "..", "commands");
-const commandFolders = fs.readdirSync(foldersPath);
+const commandFolders = fs.readdirSync(foldersPath); //Return an array containing the folders in the command directory
 
 for (const folder of commandFolders) {
   const commandsPath = path.join(foldersPath, folder);

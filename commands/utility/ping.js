@@ -5,6 +5,7 @@ const data = new SlashCommandBuilder()
   .setDescription("Replies with a Pong!");
 
 async function execute(interaction) {
+  // await interaction.reply("Pong! (~ " + client.ping + "ms)");
   await interaction.reply("Pong!");
 }
 
