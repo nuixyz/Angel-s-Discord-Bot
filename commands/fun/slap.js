@@ -6,7 +6,7 @@ const data = new SlashCommandBuilder()
   .addUserOption((option) =>
     option
       .setName("target")
-      .setDescription("Mention the user you want to slap")
+      .setDescription("Mention the user you want to slap 💢")
       .setRequired(true)
   );
 
@@ -21,16 +21,15 @@ async function execute(interaction) {
     "https://tenor.com/view/slap-jjk-nicevagg-anime-gif-22368283",
   ];
 
-  const userToSlap = interaction.options.getUser("target");
+  const targetUser = interaction.options.getUser("target");
+  const randomGif = slapGifs[Math.floor(Math.random() * slapGifs.length)];
 
-  if (!userToSlap) {
+  if (!targetUser) {
     return interaction.reply("You need to mention a user to slap!");
   }
 
-  const randomGif = slapGifs[Math.floor(Math.random() * slapGifs.length)];
-
   await interaction.reply({
-    content: `<@${interaction.user.id}> slaps <@${userToSlap.id}>! ${randomGif}`,
+    content: `<@${interaction.user.id}> slaps <@${targetUser.id}>! ${randomGif}`,
   });
 }
 
