@@ -1,8 +1,10 @@
 const { SlashCommandBuilder } = require("discord.js");
+const { slapGifs } = require("../../src/GIFs");
+const { EmbedBuilder } = require("discord.js");
 
 const data = new SlashCommandBuilder()
-  .setName("slap")
-  .setDescription("Slap an annoying user")
+  .setName("pat")
+  .setDescription("Pat someone")
   .addUserOption((option) =>
     option
       .setName("target")
@@ -11,26 +13,27 @@ const data = new SlashCommandBuilder()
   );
 
 async function execute(interaction) {
-  const slapGifs = [
-    "https://tenor.com/view/chainsaw-man-csm-csm-anime-chainsaw-man-anime-denji-gif-26957270",
-    "https://tenor.com/view/yuuri-gif-17416729081201359957",
-    "https://tenor.com/view/no-gif-17226651476707151245",
-    "https://tenor.com/view/slap-gif-22830733",
-    "https://tenor.com/view/slap-gif-20126989",
-    "https://tenor.com/view/anime-slap-mad-gif-16057834",
-    "https://tenor.com/view/slap-jjk-nicevagg-anime-gif-22368283",
-  ];
-
   const targetUser = interaction.options.getUser("target");
   const randomGif = slapGifs[Math.floor(Math.random() * slapGifs.length)];
 
   if (!targetUser) {
     return interaction.reply("You need to mention a user to slap!");
+  } else if (interaction.user.id === targetUser.id) {
+    return interaction.reply("You cannot slap yourself... . . .");
   }
 
-  await interaction.reply({
-    content: `<@${interaction.user.id}> slaps <@${targetUser.id}>! ${randomGif}`,
-  });
+  const colors = [
+    0xffffff, 0x000000, 0x0000ff, 0xff0000, 0x7a7a7a, 0x00ffff, 0xffd700,
+    0x4b0082,
+  ];
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+  const gifEmbed = new EmbedBuilder()
+    .setColor(randomColor)
+    .setDescription(`<@${interaction.user.id}> slaps <@${targetUser.id}>!`)
+    .setImage(randomGif);
+
+  await interaction.reply({ embeds: [gifEmbed] });
 }
 
 module.exports = { data, execute };

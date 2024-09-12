@@ -1,4 +1,6 @@
 const { SlashCommandBuilder } = require("discord.js");
+const { patGifs } = require("../../src/GIFs");
+const { EmbedBuilder } = require("discord.js");
 
 const data = new SlashCommandBuilder()
   .setName("pat")
@@ -11,26 +13,31 @@ const data = new SlashCommandBuilder()
   );
 
 async function execute(interaction) {
-  const patGifs = [
-    "https://tenor.com/view/anya-forger-loid-forger-spy-x-family-anime-spy-x-family-anime-gif-25413881",
-    "https://tenor.com/view/qualidea-code-head-pat-anime-anime-girl-blush-anime-gif-24627864",
-    "https://tenor.com/view/anime-hug-anime-anime-girl-anime-girls-anime-girls-hugging-gif-26094816",
-    "https://tenor.com/view/neet-anime-cute-kawaii-pat-gif-9332926",
-    "https://tenor.com/view/kanna-kamui-pat-head-pat-gif-12018819",
-  ];
-
   const targetUser = interaction.options.getUser("target");
   const randomGif = patGifs[Math.floor(Math.random() * patGifs.length)];
 
+  // Error handling for self-pat or missing user
   if (!targetUser) {
     return interaction.reply("You need to mention a user to pat!");
-  } else if (interaction.user === targetUser) {
+  } else if (interaction.user.id === targetUser.id) {
     return interaction.reply("You cannot pat yourself!");
   }
 
-  await interaction.reply({
-    content: `<@${interaction.user.id}> pats <@${targetUser.id}>! <3 ${randomGif}`,
-  });
+  // Generate a random color for the embed
+  const colors = [
+    0xffffff, 0x000000, 0x0000ff, 0xff0000, 0x7a7a7a, 0x00ffff, 0xffd700,
+    0x4b0082,
+  ];
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+  // Create an embed for the interaction
+  const gifEmbed = new EmbedBuilder()
+    .setColor(randomColor)
+    .setDescription(`<@${interaction.user.id}> pats <@${targetUser.id}>! <3`)
+    .setImage(randomGif);
+
+  // Reply with the embed using interaction.reply
+  await interaction.reply({ embeds: [gifEmbed] });
 }
 
 module.exports = { data, execute };
