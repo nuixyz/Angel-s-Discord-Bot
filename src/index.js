@@ -2,12 +2,14 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 const { token } = require("./config.json");
+const { WelcomeNewMember } = require("../events/welcome.js");
 
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMembers,
   ],
 });
 
@@ -20,7 +22,7 @@ for (const folder of commandFolders) {
   const commandsPath = path.join(foldersPath, folder); //construct a path to foldersPath; here, to [utilities]
   const commandFiles = fs
     .readdirSync(commandsPath)
-    .filter((file) => file.endsWith(".js")); //filters any file that does not ends with .js
+    .filter((file) => file.endsWith(".js")); //filters any file that does not end with .js
   for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
     const command = require(filePath);
@@ -48,6 +50,11 @@ for (const file of eventFiles) {
     client.on(event.name, (...args) => event.execute(...args));
   }
 }
+
+client.on("guildMemberAdd", (member) => {
+  console.log(`New member added: ${member.user.tag}`);
+  WelcomeNewMember(member, client);
+});
 
 //to check bot servers
 // client.on("ready", () => {
