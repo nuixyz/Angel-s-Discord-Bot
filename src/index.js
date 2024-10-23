@@ -3,6 +3,7 @@ const path = require("node:path");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 const { token } = require("./config.json");
 const { WelcomeNewMember } = require("../events/welcome.js");
+const { GiveawaysManager } = require('discord-giveaways');
 
 const client = new Client({
   intents: [
@@ -10,6 +11,7 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildMessageReactions,
   ],
 });
 
@@ -55,6 +57,17 @@ client.on("guildMemberAdd", (member) => {
   console.log(`New member added: ${member.user.tag}`);
   WelcomeNewMember(member, client);
 });
+
+const manager = new GiveawaysManager(client, {
+  storage: './giveaways.json',
+  default: {
+      botsCanWin: false,
+      embedColor: '#FF0000',
+      embedColorEnd: '#000000',
+      reaction: '🎉'
+  }
+});
+client.giveawaysManager = manager;
 
 //to check bot servers
 // client.on("ready", () => {
