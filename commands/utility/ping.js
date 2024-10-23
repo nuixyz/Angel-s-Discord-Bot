@@ -5,8 +5,13 @@ const data = new SlashCommandBuilder()
   .setDescription("Replies with a Pong!");
 
 async function execute(interaction) {
-  // await interaction.reply("Pong! (~ " + client.ping + "ms)");
-  await interaction.reply("Pong!");
+  const sent = await interaction.reply({
+    content: "Pinging...",
+    fetchReply: true,
+  });
+  interaction.editReply(
+    `Pong! \`${sent.createdTimestamp - interaction.createdTimestamp}ms\``
+  );
 }
 
 module.exports = { data, execute };
