@@ -29,7 +29,7 @@ module.exports = {
   async execute(interaction) {
     const target = interaction.options.getUser("target");
     const reason =
-      interaction.options.getString("reason") ?? "<no reason was provided.>";
+      interaction.options.getString("reason") ?? "<no reason was provided>";
 
     const Yes = new ButtonBuilder()
       .setCustomId("yes")
@@ -60,9 +60,10 @@ module.exports = {
           const member = await interaction.guild.members.fetch(target.id);
           await member.kick(reason);
           await i.update({
-            content: `${target.username} was kicked out of the server.`,
+            content: `${target.username} was kicked out of the server!`,
             components: [],
           });
+          console.log(`${target} was kicked out of the server`);
         } catch (error) {
           await i.update({
             content: `Failed to kick ${target.username}. They may not be in the server.`,
@@ -70,7 +71,7 @@ module.exports = {
           });
         }
       } else if (i.customId === "no") {
-        await i.update({ content: "Kick action canceled.", components: [] });
+        await i.update({ content: "Kick action cancelled.", components: [] });
       }
       collector.stop();
     });

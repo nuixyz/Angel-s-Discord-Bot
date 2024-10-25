@@ -17,7 +17,7 @@ module.exports = {
         .setRequired(true)
     )
     .addStringOption((option) =>
-      option.setName("reason").setDescription("The reason for banning.")
+      option.setName("reason").setDescription("What's the reason for banning?")
     )
     .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
     .setDMPermission(false),
@@ -25,7 +25,7 @@ module.exports = {
   async execute(interaction) {
     const target = interaction.options.getUser("target");
     const reason =
-      interaction.options.getString("reason") ?? "No reason was provided.";
+      interaction.options.getString("reason") ?? "<no reason was provided>";
 
     const confirm = new ButtonBuilder()
       .setCustomId("confirm")
@@ -56,8 +56,9 @@ module.exports = {
           content: `${target.username} has been banned.`,
           components: [],
         });
+        console.log(`${target} was banned.`);
       } else if (i.customId === "cancel") {
-        await i.update({ content: "Ban canceled.", components: [] });
+        await i.update({ content: "Ban cancelled.", components: [] });
       }
       collector.stop();
     });

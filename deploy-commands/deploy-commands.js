@@ -34,7 +34,6 @@ for (const folder of commandFolders) {
 
 const rest = new REST({ version: "10" }).setToken(token);
 
-// Deploy based on the mode
 (async () => {
   try {
     console.log(

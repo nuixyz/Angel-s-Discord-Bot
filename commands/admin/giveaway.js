@@ -36,7 +36,7 @@ module.exports = {
     // Check if the user has the required permissions
     if (
       !interaction.member.permissions.has(PermissionFlagsBits.ManageMessages) &&
-      !interaction.member.roles.cache.some((r) => r.name === "Giveaways")
+      !interaction.member.roles.cache.some((r) => r.name === "angelic mods")
     ) {
       return interaction.reply({
         content:
