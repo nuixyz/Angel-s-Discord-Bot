@@ -66,6 +66,7 @@ module.exports = {
       messages: "Giveaway started!",
     });
 
-    interaction.reply(`Giveaway started in ${giveawayChannel}!`);
+    interaction.reply(`Giveaway started in ${giveawayChannel}!`),
+      (ephemeral = true);
   },
 };
