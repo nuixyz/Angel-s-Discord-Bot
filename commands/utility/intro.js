@@ -14,7 +14,8 @@ module.exports = {
       .setDescription(intro)
       .setImage(
         "https://media1.tenor.com/m/IlSZ5q9UyMcAAAAd/shy-blush-blush.gif"
-      );
+      )
+      .setFooter({ text: "*Made by @nuixyz with love.*" });
     await interaction.reply({ embeds: [introEmbed] });
   },
 };
