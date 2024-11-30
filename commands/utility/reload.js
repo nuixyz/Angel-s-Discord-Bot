@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const path = require("node:path");
 
 module.exports = {
@@ -6,6 +6,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("reload")
     .setDescription("Reloads a command")
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addStringOption((option) =>
       option
         .setName("command")
@@ -38,6 +39,8 @@ module.exports = {
 
       const newCommand = require(commandPath);
       interaction.client.commands.set(newCommand.data.name, newCommand);
+      console.log(`${command.data.name} was reloaded!`);
+      console.log(`Path: ${commandPath}`);
 
       await interaction.reply({
         content: `Command \`${newCommand.data.name}\` was successfully reloaded!`,

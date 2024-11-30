@@ -6,6 +6,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("giveaway")
     .setDescription("Start a giveaway")
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addStringOption((option) =>
       option
         .setName("duration")
