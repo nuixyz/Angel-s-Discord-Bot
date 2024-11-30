@@ -6,11 +6,11 @@ module.exports = {
   category: "fun",
   data: new SlashCommandBuilder()
     .setName("hug")
-    .setDescription("Give someone a warm hug they deserve 🫂")
+    .setDescription("Give someone a warm hug they deserve")
     .addUserOption((option) =>
       option
         .setName("target")
-        .setDescription("Mention the user you want to hug 🫶")
+        .setDescription("Mention the user you want to hug")
         .setRequired(true)
     ),
 
@@ -18,15 +18,8 @@ module.exports = {
     const targetUser = interaction.options.getUser("target");
     const randomGif = hugGifs[Math.floor(Math.random() * hugGifs.length)];
 
-    const colors = [
-      0xffffff, 0x000000, 0x0000ff, 0xff0000, 0x7a7a7a, 0x00ffff, 0xffd700,
-      0x4b0082,
-    ];
-
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-
     const gifEmbed = new EmbedBuilder()
-      .setColor(randomColor)
+      .setColor("#FF69B4")
       .setDescription(`<@${interaction.user.id}> hugs <@${targetUser.id}>! <3`)
       .setImage(randomGif);
 
