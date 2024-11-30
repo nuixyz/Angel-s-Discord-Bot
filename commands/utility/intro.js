@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { introduction } = require("../../src/GIFs");
 
 module.exports = {
+  category: "utility",
   data: new SlashCommandBuilder()
     .setName("intro")
     .setDescription("About the bot"),

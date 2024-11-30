@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 
 module.exports = {
+  category: "admin",
   data: new SlashCommandBuilder()
     .setName("unban")
     .setDescription("Unban a banned user.")
@@ -19,7 +20,7 @@ module.exports = {
     try {
       await interaction.guild.members.unban(targetID);
       await interaction.reply(`<@${targetID}> has been unbanned.`);
-      console.log(`${targetID} was unbanned.`)
+      console.log(`${targetID} was unbanned.`);
     } catch (error) {
       await interaction.reply(
         `Failed to unban <@${targetID}>. Please check the ID and try again.`

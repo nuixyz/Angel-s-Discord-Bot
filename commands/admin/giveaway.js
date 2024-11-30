@@ -2,6 +2,7 @@ const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const ms = require("ms");
 
 module.exports = {
+  category: "admin",
   data: new SlashCommandBuilder()
     .setName("giveaway")
     .setDescription("Start a giveaway")

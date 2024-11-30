@@ -7,6 +7,7 @@ const {
 } = require("discord.js");
 
 module.exports = {
+  category: "admin",
   data: new SlashCommandBuilder()
     .setName("kick")
     .setDescription("Kick right at the butt")

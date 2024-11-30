@@ -3,6 +3,7 @@ const { kissGifs } = require("../../src/GIFs");
 const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
+  category: "fun",
   data: new SlashCommandBuilder()
     .setName("kiss")
     .setDescription("😳 Kiss someone!!~")

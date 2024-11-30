@@ -3,6 +3,7 @@ const { patGifs } = require("../../src/GIFs");
 const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
+  category: "fun",
   data: new SlashCommandBuilder()
     .setName("pat")
     .setDescription("Pat someone, pat pat pat")

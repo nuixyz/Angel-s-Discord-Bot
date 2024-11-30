@@ -3,6 +3,7 @@ const { slapGifs } = require("../../src/GIFs");
 const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
+  category: "fun",
   data: new SlashCommandBuilder()
     .setName("slap")
     .setDescription("Slap an annoying user")

@@ -3,6 +3,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 module.exports = {
+  category: "utility",
   data: new SlashCommandBuilder()
     .setName("help")
     .setDescription("Get a detailed list of all the available commands"),

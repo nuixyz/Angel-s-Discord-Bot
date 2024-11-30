@@ -3,6 +3,7 @@ const { hugGifs } = require("../../src/GIFs");
 const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
+  category: "fun",
   data: new SlashCommandBuilder()
     .setName("hug")
     .setDescription("Give someone a warm hug they deserve 🫂")
