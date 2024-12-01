@@ -35,18 +35,6 @@ module.exports = {
     ),
 
   async execute(interaction) {
-    // Check if the user has the required permissions
-    if (
-      !interaction.member.permissions.has(PermissionFlagsBits.ManageMessages) &&
-      !interaction.member.roles.cache.some((r) => r.name === "angelic mods")
-    ) {
-      return interaction.reply({
-        content:
-          ":x: You need to have the manage messages permissions to start giveaways.",
-        ephemeral: true,
-      });
-    }
-
     const giveawayChannel = interaction.options.getChannel("channel");
     const giveawayDuration = interaction.options.getString("duration");
     const giveawayWinnerCount = interaction.options.getInteger("winners");
